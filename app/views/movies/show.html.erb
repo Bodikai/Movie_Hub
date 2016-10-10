@@ -8,5 +8,10 @@
 	<%= @movie.description %>
 </p>
 
+<p>
+	<strong>Watched:</strong>
+	<%= @movie.watched %>
+</p>
+
 <%= link_to 'Edit', edit_movie_path(@movie) %> | 
 <%= link_to 'Back', movies_path %>
