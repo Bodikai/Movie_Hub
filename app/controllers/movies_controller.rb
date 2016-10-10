@@ -8,6 +8,7 @@ class MoviesController < ApplicationController
 	end
 
 	def new
+		@movie = Movie.new
 	end
 
 	def edit
@@ -32,6 +33,13 @@ class MoviesController < ApplicationController
 		else
 			render 'edit'
 		end
+	end
+
+	def destroy
+		@movie = Movie.find(params[:id])
+		@movie.destroy
+
+		redirect_to movies_path
 	end
 
 	private
