@@ -15,54 +15,24 @@
 		<th>OPTIONS</th>
 	</tr>
 
-	<% if @watched_filter == "All" %>
-		<% @movies.order(watched: :desc, title: :asc).each do |movie| %>
-			<tr valign="top">
-				<td><center><%= link_to movie.title.upcase, movie_path(movie) %></td></center>
-				<td><%= movie.description.capitalize %></td>
-				<td><center><%= movie.watched ? "YES" : "NO" %></center></td>
-				<td><center>
-					<%= link_to 'Edit', edit_movie_path(movie) %>
-					<%= link_to 'Delete', movie_path(movie),
-								method: :delete,
-								data: { confirm: 'Are you sure?' } %>
-					</center>
-				</td>
-			</tr>
-		<% end %>
-	<% elsif @watched_filter == "Watched" %>
-		<% @movies.order(title: :asc).each do |movie| %>
-			<% if movie.watched == true %>
-				<tr valign="top">
-					<td><center><%= link_to movie.title.upcase, movie_path(movie) %></td></center>
-					<td><%= movie.description.capitalize %></td>
-					<td><center><%= movie.watched ? "YES" : "NO" %></center></td>
-					<td><center>
-						<%= link_to 'Edit', edit_movie_path(movie) %>
-						<%= link_to 'Delete', movie_path(movie),
-									method: :delete,
-									data: { confirm: 'Are you sure?' } %>
-						</center>
-					</td>
-				</tr>
-			<% end %>
-		<% end %>
-	<% elsif @watched_filter == "Unwatched" %>
-		<% @movies.order(title: :asc).each do |movie| %>
-			<% if movie.watched == false %>
-				<tr valign="top">
-					<td><center><%= link_to movie.title.upcase, movie_path(movie) %></td></center>
-					<td><%= movie.description.capitalize %></td>
-					<td><center><%= movie.watched ? "YES" : "NO" %></center></td>
-					<td><center>
-						<%= link_to 'Edit', edit_movie_path(movie) %>
-						<%= link_to 'Delete', movie_path(movie),
-									method: :delete,
-									data: { confirm: 'Are you sure?' } %>
-						</center>
-					</td>
-				</tr>
-			<% end %>
-		<% end %>
+	<% if @watched_filter == "Watched" then filtered_movies = @movies.select do |movie| movie.watched == true end %>
+	<% elsif @watched_filter == "Unwatched" then filtered_movies = @movies.select do |movie| movie.watched == false end %>
+	<% else %>
+		<% filtered_movies = @movies.to_a %>
+	<% end %>
+	
+	<% filtered_movies.sort_by{ |movie| movie.title }.each do |movie| %>
+		<tr valign="top">
+			<td><center><%= link_to movie.title.upcase, movie_path(movie) %></td></center>
+			<td><%= movie.description.capitalize %></td>
+			<td><center><%= movie.watched ? "YES" : "NO" %></center></td>
+			<td><center>
+				<%= link_to 'Edit', edit_movie_path(movie) %>
+				<%= link_to 'Delete', movie_path(movie),
+							method: :delete,
+							data: { confirm: 'Are you sure?' } %>
+				</center>
+			</td>
+		</tr>
 	<% end %>
 </table>
