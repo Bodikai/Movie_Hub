@@ -1,28 +1,35 @@
-<h1>Listing movies</h1>
+<h1><center>Listing Movies</center></h1>
 
-<%= link_to 'NEW MOVIE', new_movie_path %>
+<center><%= link_to 'NEW MOVIE', new_movie_path %></center>
 <p></p>
 
 <table>
 	<tr>
-		<th>Title</th>
-		<th>Description</th>
-		<th>Watched?</th>
-		<th>Options</th>
+		<col width="20%">
+		<col width="60%">
+		<col width="10">
+		<col width="10">
+		<th>TITLE</th>
+		<th>SYNOPSIS</th>
+		<th>SEEN</th>
+		<th>OPTIONS</th>
 
 	</tr>
 
-	<% @movies.each do |movie| %>
-		<tr>
-			<td><%= link_to movie.title.upcase, movie_path(movie) %></td>
-			<td><%= movie.description.capitalize %></td>
-			<td><center><%= movie.watched ? "YES" : "NO" %></center></td>
-			<td>
-				<%= link_to 'Edit', edit_movie_path(movie) %>
-				<%= link_to 'Delete', movie_path(movie),
-							method: :delete,
-							data: { confirm: 'Are you sure?' } %>
-			</td>
-		</tr>
+	<% @movies.order(watched: :desc, title: :asc).each do |movie| %>
+		<% if movie.watched == false || movie.watched == true %>
+			<tr valign="top">
+				<td><center><%= link_to movie.title.upcase, movie_path(movie) %></td></center>
+				<td><%= movie.description.capitalize %></td>
+				<td><center><%= movie.watched ? "YES" : "NO" %></center></td>
+				<td><center>
+					<%= link_to 'Edit', edit_movie_path(movie) %>
+					<%= link_to 'Delete', movie_path(movie),
+								method: :delete,
+								data: { confirm: 'Are you sure?' } %>
+					</center>
+				</td>
+			</tr>
+		<% end %>
 	<% end %>
 </table>
