@@ -1,6 +1,15 @@
 class MoviesController < ApplicationController
+
+	def initialize
+		@watched_filter = "All"
+	end
+
 	def index
 		@movies = Movie.all
+	end
+
+	def watched
+		@watched_filter
 	end
 
 	def index_watched
