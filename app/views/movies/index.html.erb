@@ -11,25 +11,22 @@
 		<col width="10">
 		<th>TITLE</th>
 		<th>SYNOPSIS</th>
-		<th>SEEN</th>
+		<th><%= link_to 'WATCHED (ALL)', 'index_watched' %></th>
 		<th>OPTIONS</th>
-
 	</tr>
 
 	<% @movies.order(watched: :desc, title: :asc).each do |movie| %>
-		<% if movie.watched == false || movie.watched == true %>
-			<tr valign="top">
-				<td><center><%= link_to movie.title.upcase, movie_path(movie) %></td></center>
-				<td><%= movie.description.capitalize %></td>
-				<td><center><%= movie.watched ? "YES" : "NO" %></center></td>
-				<td><center>
-					<%= link_to 'Edit', edit_movie_path(movie) %>
-					<%= link_to 'Delete', movie_path(movie),
-								method: :delete,
-								data: { confirm: 'Are you sure?' } %>
-					</center>
-				</td>
-			</tr>
-		<% end %>
+		<tr valign="top">
+			<td><center><%= link_to movie.title.upcase, movie_path(movie) %></td></center>
+			<td><%= movie.description.capitalize %></td>
+			<td><center><%= movie.watched ? "YES" : "NO" %></center></td>
+			<td><center>
+				<%= link_to 'Edit', edit_movie_path(movie) %>
+				<%= link_to 'Delete', movie_path(movie),
+							method: :delete,
+							data: { confirm: 'Are you sure?' } %>
+				</center>
+			</td>
+		</tr>
 	<% end %>
 </table>

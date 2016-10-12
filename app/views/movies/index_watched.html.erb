@@ -1,0 +1,34 @@
+<h1><center>Listing Movies</center></h1>
+
+<center><%= link_to 'NEW MOVIE', new_movie_path %></center>
+<p></p>
+
+<table>
+	<tr>
+		<col width="20%">
+		<col width="60%">
+		<col width="10">
+		<col width="10">
+		<th>TITLE</th>
+		<th>SYNOPSIS</th>
+		<th><%= link_to 'WATCHED (YES)', 'index_unwatched' %></th>
+		<th>OPTIONS</th>
+	</tr>
+
+	<% @movies.order(title: :asc).each do |movie| %>
+		<% if movie.watched == true %>
+			<tr valign="top">
+				<td><center><%= link_to movie.title.upcase, movie_path(movie) %></td></center>
+				<td><%= movie.description.capitalize %></td>
+				<td><center><%= movie.watched ? "YES" : "NO" %></center></td>
+				<td><center>
+					<%= link_to 'Edit', edit_movie_path(movie) %>
+					<%= link_to 'Delete', movie_path(movie),
+								method: :delete,
+								data: { confirm: 'Are you sure?' } %>
+					</center>
+				</td>
+			</tr>
+		<% end %>
+	<% end %>
+</table>

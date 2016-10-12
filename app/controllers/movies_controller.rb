@@ -3,6 +3,14 @@ class MoviesController < ApplicationController
 		@movies = Movie.all
 	end
 
+	def index_watched
+		@movies = Movie.all
+	end
+
+	def index_unwatched
+		@movies = Movie.all
+	end
+
 	def show
 		@movie = Movie.find(params[:id])
 	end
