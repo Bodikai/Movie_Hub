@@ -5,18 +5,9 @@ class MoviesController < ApplicationController
 	end
 
 	def index
-		@movies = Movie.all
-	end
-
-	def watched
-		@watched_filter
-	end
-
-	def index_watched
-		@movies = Movie.all
-	end
-
-	def index_unwatched
+		if params[:watched_filter]
+			@watched_filter = params[:watched_filter]
+		end
 		@movies = Movie.all
 	end
 

@@ -11,7 +11,14 @@
 		<col width="10">
 		<th>TITLE</th>
 		<th>SYNOPSIS</th>
-		<th><%= link_to 'WATCHED (ALL)', 'index_watched' %></th>
+		<th><% if @watched_filter == "All" then %>
+				<%= link_to 'WATCHED? (ALL)', watched_movies_path("Watched") %>
+			<% elsif @watched_filter == "Watched" then %>
+				<%= link_to 'WATCHED? (YES)', watched_movies_path("Unwatched") %>
+			<% else %>
+				<%= link_to 'WATCHED? (NO)', watched_movies_path("All") %>
+			<% end %>
+		</th>
 		<th>OPTIONS</th>
 	</tr>
 

@@ -6,6 +6,8 @@ Rails.application.routes.draw do
  	root 'welcome#index'
 # 	root 'hub/index'
 
+	get '/watched_movies/:watched_filter' => 'movies#index', as: 'watched_movies'
+
 	get 'index_watched', controller: 'movies', to:'index_watched.html.erb'
 	get 'index_unwatched', controller: 'movies', to:'index_unwatched.html.erb'
 
